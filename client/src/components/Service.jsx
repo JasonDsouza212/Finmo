@@ -36,7 +36,7 @@ const Home = () => {
     if (ref.current === false) {
       alert('You cannot authenticate further UI');
     } else {
-      if(ref==payinsuccess){
+      if(ref===payinsuccess){
         navigate('/payinser');
       }else{
         navigate('/payoutser');
@@ -45,10 +45,21 @@ const Home = () => {
   };
 
   return (
-    <h1>
-      <Link onClick={() => handleLogin(payinsuccess)}>Payin</Link>
-      <Link onClick={() => handleLogin(payoutsuccess)}>Payout</Link>
-    </h1>
+    <>
+    <div className='service-card'>
+      <div className="card">
+      <h2 className="card-title">PAYIN</h2>
+      <p className="card-paragraph">Payin is the basic mechanism for collecting money from customers and depositing it in the Merchant Payin wallet or other Finmo Customer wallets.</p>
+      <Link className="card-button" onClick={() => handleLogin(payinsuccess)}>Payin</Link>
+    </div>
+    <div className="card">
+      <h2 className="card-title">PAYOUT</h2>
+      <p className="card-paragraph">Payout in Finmo terminology means money to be sent out to your beneficiaries from your Finmo account. Finmo here acts as a remitter of funds .</p>
+      <Link className="card-button" onClick={() => handleLogin(payoutsuccess)}>Payout</Link> 
+    </div>
+      </div>
+    </>
+    
   );
 };
 

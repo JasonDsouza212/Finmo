@@ -4,7 +4,12 @@ import Home from './components/Home';
 import Service from './components/Service'
 import Payinser from './components/Payinser';
 import Payoutser from './components/Payoutser';
-import './App.css'; // Import app.css file
+import Allpayins from './components/Allpayins';
+import Allpayout from './components/Allpayout';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Payin from './components/Payin';
+import './styles/App.css'; // Import app.css file
 
 
 function App() {
@@ -28,12 +33,17 @@ function App() {
   return (
 
     <div>
+      <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Service/>}/>
         <Route path="/payinser" element={<Payinser/>}/>
         <Route path="/payoutser" element={<Payoutser/>}/>
+        <Route path="/payoutser/all" element={<Allpayout/>}/>
+        <Route path="/payinser/all" element={<Allpayins/>}/>
+        <Route path="/payinser/payin" element={<Payin/>}/>
       </Routes>
+    <Footer/>
     </div>
    
   );

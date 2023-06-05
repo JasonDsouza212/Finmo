@@ -1,0 +1,72 @@
+.payoutmethh1{
+    text-align: center;
+    margin-top: 20px;
+  }
+  .payout-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .payout-card {
+      width: 300px;
+      margin: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      background-color: #ffffff;
+      text-align: center;
+      transition: transform 0.3s ease-in-out;
+      border: 1px solid black;
+    }
+    
+    .payout-card:hover {
+      transform: scale(1.05);
+    }
+    .payout-key{
+      font-weight: bolder;
+      color: orangered;
+    }
+    
+    .payout-title {
+      font-size: 26px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    
+    .payout-description {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .Logo-payout {
+      width: 300px;
+      height: 200px;
+      margin-bottom: 10px;
+    }
+    
+    .payout-info {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+    
+    .payout-link {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #337ab7;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease-in-out;
+    }
+    
+    .payout-link:hover {
+      background-color: #23527c;
+    }
+    
+    .payoutbtn{
+      text-align: center;
+      margin-bottom: 20px;
+    }
