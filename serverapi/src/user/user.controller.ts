@@ -40,6 +40,40 @@ export class UserController {
     return this.userService.payoutmethods();
   }
 
+  // All payins 
+  @Get("payin/all")
+  async getUserpayinall() {
+    return this.userService.payinall();
+  }
+
+    // All payouts 
+    @Get("payout/all")
+    async getUserpayoutalll() {
+      return this.userService.payoutall();
+    }
+
+    @Post('payinnow')
+    async createPayin(@Body() payinData: any): Promise<boolean> {
+      try {
+        await this.userService.createPayin(payinData);
+        return true;
+      } catch (error) {
+        // Handle the error as needed
+        return false;
+      }
+    }
+
+    @Post('payoutnow')
+async createPayout(@Body() payoutData: any): Promise<boolean> {
+  try {
+    await this.userService.createPayout(payoutData);
+    return true;
+  } catch (error) {
+    // Handle the error as needed
+    return false;
+  }
+}
+
 }
 
 

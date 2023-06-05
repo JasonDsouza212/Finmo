@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse,AxiosRequestConfig } from 'axios';
 
 @Injectable()
 export class UserService {
@@ -11,18 +11,26 @@ export class UserService {
   private encodedCredentials = Buffer.from(this.credentials).toString('base64');
   private auth_cred= `Basic ${this.encodedCredentials}`;
 
-  // login true or false 
-  async authenticate(): Promise<boolean> {
-    const config = {
+
+  // function for obj header 
+  private fetchData(url) {
+    const value = {
       method: 'get',
-      url: `${this.baseUrl}v1/payin-method/all?country=AU&currency=AUD`,
+      url: `${this.baseUrl}${url}`,
       headers: {
         Authorization: this.auth_cred,
       },
     };
-  
+    return value;
+};
+
+  // login true or false 
+  async authenticate(): Promise<boolean> {
+    const config = this.fetchData('v1/payin-method/all?country=AU&currency=AUD')
+    console.log(config)
     try {
       const response: AxiosResponse = await axios(config);
+      console.log(config)
       return response.status === 200; // Return true if the response status is 200 (success)
     } catch (error) {
       console.log(error);
@@ -33,13 +41,7 @@ export class UserService {
 
   // get the payin lists
   async payinmethods(): Promise<any> {
-    const config = {
-      method: 'get',
-      url: `${this.baseUrl}v1/payin-method/all?country=AU&currency=AUD`,
-      headers: {
-        Authorization: this.auth_cred,
-      },
-    };
+    const config = this.fetchData('v1/payin-method/all?country=AU&currency=AUD')
 
     try {
       const response: AxiosResponse = await axios(config);
@@ -52,13 +54,7 @@ export class UserService {
 
   // get payout methods 
   async payoutmethods(): Promise<any> {
-    const config = {
-      method: 'get',
-      url: `${this.baseUrl}v1/payout-method/all?sender_country=AU&sender_currency=AUD&beneficiary_country=AU&beneficiary_currency=AUD`,
-      headers: {
-        Authorization: this.auth_cred,
-      },
-    };
+    const config = this.fetchData('v1/payout-method/all?sender_country=AU&sender_currency=AUD&beneficiary_country=AU&beneficiary_currency=AUD')
   
     try {
       const response = await axios(config);
@@ -71,13 +67,7 @@ export class UserService {
   
   // authenticating payin 
   async authpayin(): Promise<boolean> {
-    const config = {
-      method: 'get',
-      url: `${this.baseUrl}v1/payin-method/all?country=AU&currency=AUD`,
-      headers: {
-        Authorization: this.auth_cred,
-      },
-    };
+    const config = this.fetchData('v1/payin-method/all?country=AU&currency=AUD')
   
     try {
       const response: AxiosResponse = await axios(config);
@@ -91,13 +81,7 @@ export class UserService {
 
     // authenticating Payout 
     async authpayout(): Promise<boolean> {
-      const config = {
-        method: 'get',
-        url: `${this.baseUrl}v1/payout-method/all?sender_country=AU&sender_currency=AUD&beneficiary_country=AU&beneficiary_currency=AUD`,
-        headers: {
-          Authorization: this.auth_cred,
-        },
-      };
+      const config = this.fetchData('v1/payout-method/all?sender_country=AU&sender_currency=AUD&beneficiary_country=AU&beneficiary_currency=AUD')
     
       try {
         const response: AxiosResponse = await axios(config);
@@ -108,5 +92,73 @@ export class UserService {
         return false;
       }
     }
+
+      // get payinall  
+  async payinall(): Promise<any> {
+    const config = this.fetchData('v1/payin?status=PENDING')
+  
+    try {
+      const response = await axios(config);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  } 
+
+  // get payoutall 
+  async payoutall(): Promise<any> {
+    const config = this.fetchData('v1/payout?limit=30')
+  
+    try {
+      const response = await axios(config);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+  
+  
+  async createPayin(payinData: any): Promise<boolean> {
+    const data = JSON.stringify(payinData);
+  
+    const config: AxiosRequestConfig = {
+      method: 'post',
+      url: `${this.baseUrl}v1/payin`,
+      headers: {
+        Authorization: this.auth_cred,
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+  
+    try {
+      await axios(config);
+      return true;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
+  async createPayout(payoutData: any): Promise<void> {
+    try {
+      const config: AxiosRequestConfig = {
+        method: 'post',
+        url: `${this.baseUrl}v1/payout`,
+        headers: {
+          Authorization: this.auth_cred,
+          'Content-Type': 'application/json',
+        },
+        data: payoutData,
+      };
+  
+      await axios(config);
+    } catch (error) {
+      throw error;
+    }
+  }
+  
+  
 }
 
