@@ -57,6 +57,11 @@ const Home = () => {
       <p className="card-paragraph">Payout in Finmo terminology means money to be sent out to your beneficiaries from your Finmo account. Finmo here acts as a remitter of funds .</p>
       <Link className="card-button" onClick={() => handleLogin(payoutsuccess)}>Payout</Link> 
     </div>
+    <div className="card">
+      <h2 className="card-title">CUSTOMER</h2>
+      <p className="card-paragraph"> It allows you create a profile (or a Finmo ID) for your consumers and help them to do recurring transactions as well as track the payments made by them.</p>
+      <Link className="card-button" to='/allcustomers'>All Customers</Link> 
+    </div>
       </div>
     </>
     

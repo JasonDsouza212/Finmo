@@ -13,6 +13,25 @@ export class UserController {
   }
 
 
+  @Post('loginwithcred')
+  async login(@Body() loginData: any): Promise<boolean> {
+    try {
+      return await this.userService.login(JSON.stringify(loginData));
+    } catch (error) {
+      return false;
+    }
+  }
+
+  @Get('logout')
+  async logout(): Promise<boolean> {
+    try {
+      return await this.userService.logout();
+    } catch (error) {
+      return false;
+    }
+  }
+
+
   // authenticating payin 
   @Get("authpayin")
   async getUserauthpayin() {
@@ -53,26 +72,45 @@ export class UserController {
     }
 
     @Post('payinnow')
-    async createPayin(@Body() payinData: any): Promise<boolean> {
+    async createPayinNow(@Body() payinData: any): Promise<any> {
       try {
-        await this.userService.createPayin(payinData);
+        return await this.userService.createPayin(payinData);
+      //  return true;
+      } catch (error) {
+        // Handle the error as needed
+        return false;
+        // return error;
+      }
+    }
+
+    @Post('payoutnow')
+      async createPayout(@Body() payoutData: any): Promise<boolean> {
+        try {
+          await this.userService.createPayout(payoutData);
+          return true;
+        } catch (error) {
+          // Handle the error as needed
+          return false;
+        }
+    }
+
+    // add customer 
+    @Post('addcustomer')
+    async addcustomer(@Body() addcustomerData: any): Promise<boolean> {
+      try {
+        await this.userService.addcustomer(addcustomerData);
         return true;
       } catch (error) {
         // Handle the error as needed
         return false;
       }
-    }
-
-    @Post('payoutnow')
-async createPayout(@Body() payoutData: any): Promise<boolean> {
-  try {
-    await this.userService.createPayout(payoutData);
-    return true;
-  } catch (error) {
-    // Handle the error as needed
-    return false;
   }
-}
+
+      // add customer 
+      @Get("allcustomer")
+      async allcustomer() {
+        return this.userService.allcustomer();
+      }
 
 }
 

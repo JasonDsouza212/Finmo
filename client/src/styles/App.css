@@ -121,6 +121,15 @@ img {
 .fill:hover::after {
   width: 100%;
 }
+.loading-message,
+.errormsg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  font-size: 34px;
+}
+
 .section-title {
   width: fit-content;
   max-width: 400px;
@@ -145,6 +154,11 @@ img {
   gap: 10px;
 }
 /* End Utility Classes */
+
+.login-form{
+  position: relative;
+  bottom: 30px;
+}
 
 /* Start Header */
 

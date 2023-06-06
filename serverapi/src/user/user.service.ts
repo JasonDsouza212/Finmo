@@ -4,13 +4,31 @@ import axios, { AxiosResponse,AxiosRequestConfig } from 'axios';
 @Injectable()
 export class UserService {
   private baseUrl = 'https://api.qafinmo.net/';
-  private accessKey = 'AK_FINMO_SBX_216E44195E9E41EF95A8A653C340026C';
-  private secretKey = 'SK_FINMO_SBX_E77FC2D5_C6E0_420C_AE81_89F914ED4773';
+  private accessKey = '';
+  private secretKey = '';
+  private credentials = "";
+  // private accessKey = 'AK_FINMO_SBX_46CB8F4C4D4B4942A26D62094FC03D1E';
+  // private secretKey = 'SK_FINMO_SBX_C8EB585A_CF94_46EB_BE02_40BF3BCB03B7';
+  private encodedCredentials = "";
+  private auth_cred="" ;
 
-  private credentials = `${this.accessKey}:${this.secretKey}`;
-  private encodedCredentials = Buffer.from(this.credentials).toString('base64');
-  private auth_cred= `Basic ${this.encodedCredentials}`;
+ 
+  private setdata(aKey,skey){
+    this.accessKey=aKey
+    this.secretKey=skey
+    this.credentials= `${this.accessKey}:${this.secretKey}`
+    this.encodedCredentials=Buffer.from(this.credentials).toString('base64');
+    this.auth_cred=`Basic ${this.encodedCredentials}`;
+  }
 
+  private resetdata(){
+    this.accessKey=""
+    this.secretKey=""
+    this.credentials= ""
+    this.encodedCredentials="";
+    this.auth_cred="";
+    return true;
+  }
 
   // function for obj header 
   private fetchData(url) {
@@ -31,7 +49,8 @@ export class UserService {
     try {
       const response: AxiosResponse = await axios(config);
       console.log(config)
-      return response.status === 200; // Return true if the response status is 200 (success)
+      console.log(response.status)
+      return response.status == 200; // Return true if the response status is 200 (success)
     } catch (error) {
       console.log(error);
       // throw error;
@@ -39,12 +58,26 @@ export class UserService {
     }
   }
 
+    // login true or false 
+    async login(loginData: any): Promise<boolean> {
+      const data = JSON.parse(loginData);
+      this.setdata(data.accessKey,data.secretKey)
+      return this.authenticate();
+    }
+ // logout true or false 
+    async logout(): Promise<boolean> {
+      
+      return this.resetdata();
+    }
+    
+
+
   // get the payin lists
   async payinmethods(): Promise<any> {
     const config = this.fetchData('v1/payin-method/all?country=AU&currency=AUD')
 
     try {
-      const response: AxiosResponse = await axios(config);
+      const response= await axios(config);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -96,15 +129,27 @@ export class UserService {
       // get payinall  
   async payinall(): Promise<any> {
     const config = this.fetchData('v1/payin?status=PENDING')
-  
-    try {
-      const response = await axios(config);
-      return response.data;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  } 
+    
+      try {
+        const response:AxiosResponse = await axios(config);
+        return response.data;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    } 
+        // get payinall  
+        async allcustomer(): Promise<any> {
+          const config = this.fetchData('v1/customer')
+        
+          try {
+            const response = await axios(config);
+            return response.data;
+          } catch (error) {
+            console.log(error);
+            throw error;
+          }
+        } 
 
   // get payoutall 
   async payoutall(): Promise<any> {
@@ -120,24 +165,24 @@ export class UserService {
   }
   
   
-  async createPayin(payinData: any): Promise<boolean> {
+  async createPayin(payinData: any): Promise<any> {
     const data = JSON.stringify(payinData);
-  
-    const config: AxiosRequestConfig = {
-      method: 'post',
-      url: `${this.baseUrl}v1/payin`,
-      headers: {
-        Authorization: this.auth_cred,
-        'Content-Type': 'application/json',
-      },
-      data: data,
-    };
-  
     try {
-      await axios(config);
-      return true;
+      const config  = {
+        method: 'post',
+        url: `${this.baseUrl}v1/payin`,
+        headers: {
+          Authorization: `Basic ${Buffer.from(this.credentials).toString('base64')}`,
+          'Content-Type': 'application/json',
+        },
+        data: data,
+      };
+    
+      const response=await axios(config);
+      return response.data;
     } catch (error) {
-      throw error;
+      return false
+      // throw error;
     }
   }
   
@@ -147,10 +192,28 @@ export class UserService {
         method: 'post',
         url: `${this.baseUrl}v1/payout`,
         headers: {
-          Authorization: this.auth_cred,
+          Authorization: `Basic ${Buffer.from(this.credentials).toString('base64')}`,
           'Content-Type': 'application/json',
         },
         data: payoutData,
+      };
+  
+      await axios(config);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async addcustomer(addcustomerData: any): Promise<void> {
+    try {
+      const config: AxiosRequestConfig = {
+        method: 'post',
+        url: `${this.baseUrl}v1/customer`,
+        headers: {
+          Authorization: `Basic ${Buffer.from(this.credentials).toString('base64')}`,
+          'Content-Type': 'application/json',
+        },
+        data: addcustomerData,
       };
   
       await axios(config);

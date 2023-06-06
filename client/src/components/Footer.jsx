@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
     const date = new Date();
     const year = date.getFullYear();
@@ -20,9 +22,9 @@ const Footer = () => {
           <br />
           Maintained by{' '}
           <span className="maintainer">
-            <a target="_blank" href="https://github.com/JasonDsouza212">
+            <Link target="_blank" href="https://github.com/JasonDsouza212">
               Jason Dsouza
-            </a>
+            </Link>
           </span>
         </p>
         <br />

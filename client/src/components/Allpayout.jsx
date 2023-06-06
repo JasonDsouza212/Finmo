@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Allpayout = () => {
   const [allPayout, setAllPayout] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -10,9 +11,11 @@ const Allpayout = () => {
         const response = await fetch('http://localhost:3000/user/payout/all');
         const data = await response.json();
         setAllPayout(data.data);
+        setIsLoading(false); // Set isLoading to false when data is fetched
         console.log(data);
       } catch (error) {
         console.log(error);
+        setIsLoading(false); // Set isLoading to false on error as well
       }
     };
 
@@ -22,8 +25,10 @@ const Allpayout = () => {
   return (
     <div>
       <h1 className='payout-hist-h1'>Payout Methods</h1>
-      {allPayout.length === 0 ? (
-        <h1 className='errormsg-payouthist'>Nothing to show no payout transactions</h1>
+      {isLoading ? (
+        <h1 className='loading-message'>Loading...</h1>
+      ) : allPayout.length === 0 ? (
+        <h1 className='errormsg'>Nothing to show, no payout transactions</h1>
       ) : (
         allPayout.map((item) => (
           <div key={item.payout_id}>

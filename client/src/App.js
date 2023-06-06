@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,createContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Service from './components/Service'
@@ -9,11 +9,15 @@ import Allpayout from './components/Allpayout';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Payin from './components/Payin';
+import Addcustomer from './components/Addcustomer';
+import Allcustomers from './components/Allcustomers';
+import Default from './components/Default';
 import './styles/App.css'; // Import app.css file
-
+export const FinmoContext = createContext()
 
 function App() {
   const [payinMethods, setPayinMethods] = useState([]);
+  const [isLoggedin,setIsLoggedin] =useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,24 +33,35 @@ function App() {
 
     fetchData();
   }, []);
+  const finmoContextValue = {
+    isLoggedin, setIsLoggedin
+  }
 
   return (
-
     <div>
-      <Navbar/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/services" element={<Service/>}/>
-        <Route path="/payinser" element={<Payinser/>}/>
-        <Route path="/payoutser" element={<Payoutser/>}/>
-        <Route path="/payoutser/all" element={<Allpayout/>}/>
-        <Route path="/payinser/all" element={<Allpayins/>}/>
-        <Route path="/payinser/payin" element={<Payin/>}/>
-      </Routes>
-    <Footer/>
+      <FinmoContext.Provider value={finmoContextValue}>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {isLoggedin && (
+            <>
+              <Route path="/services" element={<Service />} />
+              <Route path="/payinser" element={<Payinser />} />
+              <Route path="/payoutser" element={<Payoutser />} />
+              <Route path="/payoutser/all" element={<Allpayout />} />
+              <Route path="/payinser/all" element={<Allpayins />} />
+              <Route path="/payinser/payin" element={<Payin />} />
+              <Route path="/addcustomer" element={<Addcustomer />} />
+              <Route path="/allcustomers" element={<Allcustomers />} />
+            </>
+          )}
+          <Route path="*" element={<Default />} />
+        </Routes>
+        <Footer />
+      </FinmoContext.Provider>
     </div>
-   
   );
+  
 }
 
 export default App;

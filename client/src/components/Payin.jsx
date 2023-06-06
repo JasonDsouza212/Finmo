@@ -5,9 +5,9 @@ import axios from 'axios';
 
 const PaymentForm = () => {
   const [amount, setAmount] = useState(0);
-  const [currency, setCurrency] = useState('');
+  // const [currency, setCurrency] = useState('');
   const [description, setDescription] = useState('');
-  const [payinMethodName, setPayinMethodName] = useState('');
+  // const [payinMethodName, setPayinMethodName] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -15,15 +15,14 @@ const PaymentForm = () => {
 
     const payinData = {
       amount: parseInt(amount), // Convert to number using parseInt
-      currency,
+      currency:"AUD",
       description,
-      payin_method_name: payinMethodName,
+      payin_method_name: "au_bank_npp",
     };
 
     try {
       const response = await axios.post('http://localhost:3000/user/payinnow', payinData);
-      // Check if the payment was successful
-      if (response) {
+      if (response.statusText=="Created") {
         alert("Payment successful");
         navigate('/');
       } else {
@@ -40,7 +39,7 @@ const PaymentForm = () => {
       <h1 className="form-title">PAYIN FORM</h1>
       <form className="form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="amount" className="form-label">Amount:</label>
+          <label htmlFor="amount" className="form-label">Amount in AUD:</label>
           <input
             type="number"
             id="amount"
@@ -49,7 +48,7 @@ const PaymentForm = () => {
             onChange={(e) => setAmount(e.target.value)}
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="currency" className="form-label">Currency:</label>
           <input
             type="text"
@@ -58,7 +57,7 @@ const PaymentForm = () => {
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
           />
-        </div>
+        </div> */}
         <div className="form-group">
           <label htmlFor="description" className="form-label">Description:</label>
           <input
@@ -69,7 +68,7 @@ const PaymentForm = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="payinMethodName" className="form-label">Payin Method Name:</label>
           <input
             type="text"
@@ -78,8 +77,8 @@ const PaymentForm = () => {
             value={payinMethodName}
             onChange={(e) => setPayinMethodName(e.target.value)}
           />
-        </div>
-        <button type="submit" className="form-button">Submit</button>
+        </div> */}
+        <button type="submit" className="form-button">Pay</button>
       </form>
       {/* <Link to="/payinser/all" className="link">Go to All Payin Services</Link> */}
     </div>

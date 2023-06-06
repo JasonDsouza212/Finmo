@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Payoutser = () => {
   const [payoutMethods, setPayoutMethods] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -10,9 +11,11 @@ const Payoutser = () => {
         const response = await fetch('http://localhost:3000/user/payout');
         const data = await response.json();
         setPayoutMethods(data.data);
+        setIsLoading(false); // Set isLoading to false when data is fetched
         console.log(data);
       } catch (error) {
         console.log(error);
+        setIsLoading(false); // Set isLoading to false on error as well
       }
     };
 
@@ -21,11 +24,14 @@ const Payoutser = () => {
 
   return (
     <>
-      {payoutMethods.length === 0 ? (
-        <h1>Loading...</h1>
+    <h1 className="payoutmethh1">Payout Methods</h1>
+      {isLoading ? (
+        <h1 className='loading-message'>Loading...</h1>
+      ) : payoutMethods.length === 0 ? (
+        <h1 className='errormsg'>No payout methods available.</h1>
       ) : (
         <div>
-          <h1 className="payoutmethh1">Payout Methods</h1>
+          {/* <h1 className="payoutmethh1">Payout Methods</h1> */}
           <div className="payout-container">
             {payoutMethods.map((method) => (
               <div key={method.payout_method_id} className="payout-card">
