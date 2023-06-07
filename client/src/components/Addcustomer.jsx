@@ -46,6 +46,7 @@ const Addcustomer = () => {
             className="form-input"
             value={firstname}
             onChange={(e) => setFirstname(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
@@ -56,6 +57,7 @@ const Addcustomer = () => {
             className="form-input"
             value={lastname}
             onChange={(e) => setLastname(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
@@ -66,6 +68,7 @@ const Addcustomer = () => {
             className="form-input"
             value={country_of_residence}
             onChange={(e) => setCountry_of_residence(e.target.value)}
+            required
           />
         </div>
         <button type="submit" className="form-button">Submit</button>

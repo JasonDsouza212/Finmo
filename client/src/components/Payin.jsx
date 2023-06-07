@@ -43,6 +43,7 @@ const PaymentForm = () => {
             className="form-input"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
+            required
           />
         </div>
         <div className="form-group">
@@ -53,6 +54,7 @@ const PaymentForm = () => {
             className="form-input"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            required
           />
         </div>
         <button type="submit" className="form-button">Pay</button>

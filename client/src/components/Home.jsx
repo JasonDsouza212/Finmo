@@ -58,6 +58,7 @@ const Home = () => {
                       className="form-input"
                       value={accessKey}
                       onChange={(e) => SetAccessKey(e.target.value)}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -68,6 +69,7 @@ const Home = () => {
                       className="form-input"
                       value={secretKey}
                       onChange={(e) => setSecretKey(e.target.value)}
+                      required
                     />
                   </div>
                   <button type="submit" className="form-button">Login</button>
