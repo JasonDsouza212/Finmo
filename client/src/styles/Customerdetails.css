@@ -1,0 +1,24 @@
+.customer-table {
+    border-collapse: collapse;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 120px;
+  }
+  
+  .customer-table td {
+    padding: 8px;
+    border: 2px solid #8e8d8d;
+    text-transform: uppercase;
+  }
+  
+  .customer-table .key {
+    font-weight: bold;
+  }
+  
+  .loading,
+  .no-data {
+    margin: 16px;
+    font-weight: bold;
+  }
+  

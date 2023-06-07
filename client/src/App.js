@@ -12,37 +12,40 @@ import Payin from './components/Payin';
 import Addcustomer from './components/Addcustomer';
 import Allcustomers from './components/Allcustomers';
 import Default from './components/Default';
-import './styles/App.css'; // Import app.css file
+import Customerdetails from './components/Customerdetails';
+import Individualpayindetails from './components/Individualpayindetails';
+import './styles/App.css'; 
+
+
 export const FinmoContext = createContext()
 
 function App() {
-  const [payinMethods, setPayinMethods] = useState([]);
   const [isLoggedin,setIsLoggedin] =useState(false)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/user/payin');
-        const data = await response.json();
-        setPayinMethods(data.data);
-        console.log(data)
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  useEffect(()=>{
+    checkLogin()
+  },[])
 
-    fetchData();
-  }, []);
+  function checkLogin() {
+    if (localStorage.getItem('finmologin') === null) {
+      setIsLoggedin(false);
+    } else {
+      setIsLoggedin(true);
+    }
+  }
+
   const finmoContextValue = {
-    isLoggedin, setIsLoggedin
+    isLoggedin, setIsLoggedin,checkLogin
   }
 
   return (
     <div>
       <FinmoContext.Provider value={finmoContextValue}>
         <Navbar />
+        <div className="mainpage">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/anime" element={<Default />} />
           {isLoggedin && (
             <>
               <Route path="/services" element={<Service />} />
@@ -53,10 +56,13 @@ function App() {
               <Route path="/payinser/payin" element={<Payin />} />
               <Route path="/addcustomer" element={<Addcustomer />} />
               <Route path="/allcustomers" element={<Allcustomers />} />
+              <Route path="/customer/:customer_id" element={<Customerdetails />} />
+              <Route path="/payin/:payin_id" element={<Individualpayindetails />} />
             </>
           )}
           <Route path="*" element={<Default />} />
         </Routes>
+        </div>
         <Footer />
       </FinmoContext.Provider>
     </div>

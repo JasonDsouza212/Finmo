@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -22,7 +22,7 @@ const PaymentForm = () => {
 
     try {
       const response = await axios.post('http://localhost:3000/user/payinnow', payinData);
-      if (response.statusText=="Created") {
+      if (response.statusText==="Created") {
         alert("Payment successful");
         navigate('/');
       } else {

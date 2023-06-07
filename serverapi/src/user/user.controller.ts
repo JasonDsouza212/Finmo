@@ -112,6 +112,15 @@ export class UserController {
         return this.userService.allcustomer();
       }
 
+      @Get("customer/:customerId")
+      async customerdetails(@Param('customerId') customerId: string) {
+        return this.userService.customerdetails(customerId);
+      }
+      @Get("payin/:payinId")
+      async individualpayindetails(@Param('payinId') payinId: string) {
+        return this.userService.individualpayindetails(payinId);
+      }
+
 }
 
 

@@ -151,6 +151,33 @@ export class UserService {
           }
         } 
 
+        // indicidual customer details 
+        async customerdetails(customerId: string): Promise<any> {
+          const config = this.fetchData(`v1/customer/${customerId}`);
+          
+          try {
+            const response = await axios(config);
+            return response.data;
+          } catch (error) {
+            console.log(error);
+            throw error;
+          }
+        }
+
+        // indicidual payin details details 
+        async individualpayindetails(payinId: string): Promise<any> {
+          const config = this.fetchData(`v1/payin/${payinId}`);
+          
+          try {
+            const response = await axios(config);
+            return response.data;
+          } catch (error) {
+            console.log(error);
+            throw error;
+          }
+        }
+        
+
   // get payoutall 
   async payoutall(): Promise<any> {
     const config = this.fetchData('v1/payout?limit=30')
@@ -222,6 +249,7 @@ export class UserService {
     }
   }
   
+
   
 }
 

@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import {  Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 const Allcustomers = () => {
   const [allcustomers, setAllcustomers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +48,11 @@ const Allcustomers = () => {
             </thead>
             <tbody>
               {allcustomers.map((item) => (
-                <tr key={item.payin_id}>
+                <tr
+                  key={item.payin_id}
+                  className='tr-items'
+                  onClick={() => navigate(`/customer/${item.customer_id}`)}
+                >
                   <td>{`${item.individual.first_name} ${item.individual.last_name}`}</td>
                   <td>{item.customer_id}</td>
                   <td>{item.is_active ? 'True' : 'False'}</td>

@@ -4,6 +4,7 @@
 @import url('Payoutser.css');
 @import url('Allpayout.css');
 @import url('payinForm.css');
+@import url('Customerdetails.css');
 /* Start Global Rules */
 *,
 *::before,
@@ -403,6 +404,11 @@ textarea:focus {
 /* End contact */
 
 /* Start Footer */
+.mainpage{
+  display: flex;
+    flex-direction: column;
+    min-height: 71vh;
+}
 footer {
   background: #1a1919;
   height: auto;

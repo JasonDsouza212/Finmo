@@ -12,9 +12,16 @@
   
   .payin-table th,
   .payin-table td {
+    text-align: center;
     padding: 10px;
     border: 2px solid #585252;
   }
+
+  .payin-table .tr-items:hover {
+    background-color: #585252 ;
+    color: white;
+  }
+  
   
   .payin-link {
     display: block;

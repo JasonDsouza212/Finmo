@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import { FinmoContext } from '../App'
 
 const Navbar = () => {
-  const { isLoggedin, setIsLoggedin } = useContext(FinmoContext)
+  const { isLoggedin,checkLogin } = useContext(FinmoContext)
   const navigate = useNavigate();
 
   async function handleLogout() {
@@ -11,7 +11,9 @@ const Navbar = () => {
       const response = await fetch('http://localhost:3000/user/logout');
       if (response) {
         alert("Logged out successfully");
-        setIsLoggedin(false);
+        // setIsLoggedin(false);
+        localStorage.removeItem("finmologin")
+        checkLogin();
         navigate('/');
       } else {
         alert("Logout unsuccessful");
