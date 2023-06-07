@@ -225,4 +225,21 @@ export class UserService {
       throw error;
     }
   }
+  
+    // Deleting customer
+  async deleteCustomer(customerId: string): Promise<any> {
+    const config = {
+      method: "delete",
+      url: `${this.baseUrl}v1/customer/${customerId}`,
+      headers: {
+        Authorization: this.auth_cred,
+      },
+    }
+    try {
+      const response = await axios(config);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

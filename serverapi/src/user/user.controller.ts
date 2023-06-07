@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -110,10 +110,16 @@ export class UserController {
   async customerdetails(@Param('customerId') customerId: string) {
     return this.userService.customerdetails(customerId);
   }
-
+  
   // get details of individual Payin
   @Get('payin/:payinId')
   async individualpayindetails(@Param('payinId') payinId: string) {
     return this.userService.individualpayindetails(payinId);
   }
+
+    // Delete individual customer
+    @Delete('customer/:customerId')
+    async deleteCustomer(@Param('customerId') customerId: string):Promise<any> {
+      return this.userService.deleteCustomer(customerId);
+    }
 }

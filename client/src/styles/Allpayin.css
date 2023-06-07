@@ -47,3 +47,24 @@
 .mediasupport {
   display: none;
 }
+.delete-button{
+  background-color: rgb(255, 255, 255);
+  border: none;
+  padding: 5px;
+  border-radius: 50%;
+  font-weight: bolder;
+}
+.delete-button i{
+  font-size: 20px;
+}
+
+.payin-table .tr-items:hover .delete-button{
+  background-color: hsl(206, 87%, 57%);
+}
+.delete-button:hover{
+  scale: 1.2;
+  
+}
+.delete-button:hover i{
+  color: rgb(195, 5, 5);
+}
