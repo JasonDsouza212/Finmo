@@ -1,31 +1,27 @@
 import React, { useState } from 'react';
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
 
 const Addcustomer = () => {
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [country_of_residence, setCountry_of_residence] = useState('');
-//   const [description, setDescription] = useState('');
-//   const [payinMethodName, setPayinMethodName] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const payinData = {
-       type:"individual",
-       individual:{
-        first_name:firstname,
+      type: "individual",
+      individual: {
+        first_name: firstname,
         last_name: lastname,
-        country_of_residence:country_of_residence
-       }
+        country_of_residence: country_of_residence
+      }
     };
 
     try {
       const response = await axios.post('http://localhost:3000/user/addcustomer', payinData);
-      // Check if the payment was successful
       if (response) {
         alert("Added Customer");
         navigate('/allcustomers');

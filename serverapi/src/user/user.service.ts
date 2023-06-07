@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import axios, { AxiosResponse,AxiosRequestConfig } from 'axios';
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 
 @Injectable()
 export class UserService {
@@ -7,30 +7,29 @@ export class UserService {
   private accessKey = '';
   private secretKey = '';
   private credentials = "";
-  // private accessKey = 'AK_FINMO_SBX_46CB8F4C4D4B4942A26D62094FC03D1E';
-  // private secretKey = 'SK_FINMO_SBX_C8EB585A_CF94_46EB_BE02_40BF3BCB03B7';
   private encodedCredentials = "";
-  private auth_cred="" ;
+  private auth_cred = "";
 
- 
-  private setdata(aKey,skey){
-    this.accessKey=aKey
-    this.secretKey=skey
-    this.credentials= `${this.accessKey}:${this.secretKey}`
-    this.encodedCredentials=Buffer.from(this.credentials).toString('base64');
-    this.auth_cred=`Basic ${this.encodedCredentials}`;
+  // setting data when logged in 
+  private setdata(aKey, skey) {
+    this.accessKey = aKey;
+    this.secretKey = skey;
+    this.credentials = `${this.accessKey}:${this.secretKey}`;
+    this.encodedCredentials = Buffer.from(this.credentials).toString('base64');
+    this.auth_cred = `Basic ${this.encodedCredentials}`;
   }
 
-  private resetdata(){
-    this.accessKey=""
-    this.secretKey=""
-    this.credentials= ""
-    this.encodedCredentials="";
-    this.auth_cred="";
+  // setting all values to empty during logout 
+  private resetdata() {
+    this.accessKey = "";
+    this.secretKey = "";
+    this.credentials = "";
+    this.encodedCredentials = "";
+    this.auth_cred = "";
     return true;
   }
 
-  // function for obj header 
+  // function for object header 
   private fetchData(url) {
     const value = {
       method: 'get',
@@ -40,162 +39,139 @@ export class UserService {
       },
     };
     return value;
-};
+  };
 
   // login true or false 
   async authenticate(): Promise<boolean> {
-    const config = this.fetchData('v1/payin-method/all?country=AU&currency=AUD')
-    console.log(config)
+    const config = this.fetchData('v1/payin-method/all?country=AU&currency=AUD');
     try {
       const response: AxiosResponse = await axios(config);
-      console.log(config)
-      console.log(response.status)
-      return response.status == 200; // Return true if the response status is 200 (success)
+      return response.status == 200; 
     } catch (error) {
-      console.log(error);
-      // throw error;
       return false;
     }
   }
 
-    // login true or false 
-    async login(loginData: any): Promise<boolean> {
-      const data = JSON.parse(loginData);
-      this.setdata(data.accessKey,data.secretKey)
-      return this.authenticate();
-    }
- // logout true or false 
-    async logout(): Promise<boolean> {
-      
-      return this.resetdata();
-    }
-    
+  // login true or false with access and secret
+  async login(loginData: any): Promise<boolean> {
+    const data = JSON.parse(loginData);
+    this.setdata(data.accessKey, data.secretKey);
+    return this.authenticate();
+  }
 
+  // logout true or false 
+  async logout(): Promise<boolean> {
+    return this.resetdata();
+  }
 
-  // get the payin lists
+  // get the payin methods
   async payinmethods(): Promise<any> {
-    const config = this.fetchData('v1/payin-method/all?country=AU&currency=AUD')
-
+    const config = this.fetchData('v1/payin-method/all?country=AU&currency=AUD');
     try {
-      const response= await axios(config);
+      const response = await axios(config);
       return response.data;
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }
 
   // get payout methods 
   async payoutmethods(): Promise<any> {
-    const config = this.fetchData('v1/payout-method/all?sender_country=AU&sender_currency=AUD&beneficiary_country=AU&beneficiary_currency=AUD')
-  
+    const config = this.fetchData('v1/payout-method/all?sender_country=AU&sender_currency=AUD&beneficiary_country=AU&beneficiary_currency=AUD');
     try {
       const response = await axios(config);
       return response.data;
     } catch (error) {
-      console.log(error);
       throw error;
     }
-  }  
-  
+  }
+
   // authenticating payin 
   async authpayin(): Promise<boolean> {
-    const config = this.fetchData('v1/payin-method/all?country=AU&currency=AUD')
-  
+    const config = this.fetchData('v1/payin-method/all?country=AU&currency=AUD');
     try {
       const response: AxiosResponse = await axios(config);
-      return response.status === 200; // Return true if the response status is 200 (success)
+      return response.status === 200;
     } catch (error) {
-      console.log(error);
-      // throw error;
       return false;
     }
   }
 
-    // authenticating Payout 
-    async authpayout(): Promise<boolean> {
-      const config = this.fetchData('v1/payout-method/all?sender_country=AU&sender_currency=AUD&beneficiary_country=AU&beneficiary_currency=AUD')
-    
-      try {
-        const response: AxiosResponse = await axios(config);
-        return response.status === 200; // Return true if the response status is 200 (success)
-      } catch (error) {
-        console.log(error);
-        // throw error;
-        return false;
-      }
+  // authenticating Payout 
+  async authpayout(): Promise<boolean> {
+    const config = this.fetchData('v1/payout-method/all?sender_country=AU&sender_currency=AUD&beneficiary_country=AU&beneficiary_currency=AUD');
+    try {
+      const response: AxiosResponse = await axios(config);
+      return response.status === 200;
+    } catch (error) {
+      return false;
     }
+  }
 
-      // get payinall  
+  // get all Payins  
   async payinall(): Promise<any> {
-    const config = this.fetchData('v1/payin?status=PENDING')
-    
-      try {
-        const response:AxiosResponse = await axios(config);
-        return response.data;
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
-    } 
-        // get payinall  
-        async allcustomer(): Promise<any> {
-          const config = this.fetchData('v1/customer')
-        
-          try {
-            const response = await axios(config);
-            return response.data;
-          } catch (error) {
-            console.log(error);
-            throw error;
-          }
-        } 
+    const config = this.fetchData('v1/payin?status=PENDING');
 
-        // indicidual customer details 
-        async customerdetails(customerId: string): Promise<any> {
-          const config = this.fetchData(`v1/customer/${customerId}`);
-          
-          try {
-            const response = await axios(config);
-            return response.data;
-          } catch (error) {
-            console.log(error);
-            throw error;
-          }
-        }
+    try {
+      const response: AxiosResponse = await axios(config);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 
-        // indicidual payin details details 
-        async individualpayindetails(payinId: string): Promise<any> {
-          const config = this.fetchData(`v1/payin/${payinId}`);
-          
-          try {
-            const response = await axios(config);
-            return response.data;
-          } catch (error) {
-            console.log(error);
-            throw error;
-          }
-        }
-        
+  // get all customers  
+  async allcustomer(): Promise<any> {
+    const config = this.fetchData('v1/customer');
 
-  // get payoutall 
-  async payoutall(): Promise<any> {
-    const config = this.fetchData('v1/payout?limit=30')
-  
     try {
       const response = await axios(config);
       return response.data;
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }
-  
-  
+
+  // individual customer details 
+  async customerdetails(customerId: string): Promise<any> {
+    const config = this.fetchData(`v1/customer/${customerId}`);
+    try {
+      const response = await axios(config);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // individual payin details  
+  async individualpayindetails(payinId: string): Promise<any> {
+    const config = this.fetchData(`v1/payin/${payinId}`);
+
+    try {
+      const response = await axios(config);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // get all payout 
+  async payoutall(): Promise<any> {
+    const config = this.fetchData('v1/payout?limit=30');
+
+    try {
+      const response = await axios(config);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // creating a Payin post 
   async createPayin(payinData: any): Promise<any> {
     const data = JSON.stringify(payinData);
     try {
-      const config  = {
+      const config = {
         method: 'post',
         url: `${this.baseUrl}v1/payin`,
         headers: {
@@ -204,15 +180,15 @@ export class UserService {
         },
         data: data,
       };
-    
-      const response=await axios(config);
+
+      const response = await axios(config);
       return response.data;
     } catch (error) {
-      return false
-      // throw error;
+      return false;
     }
   }
-  
+
+  // creating a post to payout 
   async createPayout(payoutData: any): Promise<void> {
     try {
       const config: AxiosRequestConfig = {
@@ -224,13 +200,14 @@ export class UserService {
         },
         data: payoutData,
       };
-  
+
       await axios(config);
     } catch (error) {
       throw error;
     }
   }
 
+  // Adding customer
   async addcustomer(addcustomerData: any): Promise<void> {
     try {
       const config: AxiosRequestConfig = {
@@ -242,14 +219,10 @@ export class UserService {
         },
         data: addcustomerData,
       };
-  
+
       await axios(config);
     } catch (error) {
       throw error;
     }
   }
-  
-
-  
 }
-

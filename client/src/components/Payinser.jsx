@@ -11,11 +11,11 @@ const Payinser = () => {
         const response = await fetch('http://localhost:3000/user/payin');
         const data = await response.json();
         setPayinMethods(data.data);
-        setIsLoading(false); // Set isLoading to false when data is fetched
+        setIsLoading(false);
         console.log(data);
       } catch (error) {
         console.log(error);
-        setIsLoading(false); // Set isLoading to false on error as well
+        setIsLoading(false);
       }
     };
 
@@ -32,7 +32,7 @@ const Payinser = () => {
             <h1 className="errormsg-payin">No payin methods available</h1>
           ) : (
             <>
-              <h1 className="payinmethh1">Payin Methods</h1>
+              <h1 className='payin-hist-h1'>Payin Methods</h1>
               <div className="payin-container">
                 {payinMethods.map((method) => (
                   <div key={method.payin_method_id} className="payin-card">

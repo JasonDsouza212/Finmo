@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Allpayins = () => {
   const [allpayin, setAllpayin] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+
   useEffect(() => {
-    
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:3000/user/payin/all');
         const data = await response.json();
         setAllpayin(data.data);
-        setIsLoading(false); // Set isLoading to false when data is fetched
+        setIsLoading(false);
         // console.log(data);
       } catch (error) {
         // console.log(error);
-        setIsLoading(false); // Set isLoading to false on error as well
+        setIsLoading(false);
       }
     };
 
@@ -49,10 +49,10 @@ const Allpayins = () => {
             </thead>
             <tbody>
               {allpayin.map((item) => (
-                <tr 
-                key={item.payin_id}
-                className='tr-items'
-                onClick={() => navigate(`/payin/${item.payin_id}`)}
+                <tr
+                  key={item.payin_id}
+                  className='tr-items'
+                  onClick={() => navigate(`/payin/${item.payin_id}`)}
                 >
                   <td>{item.payin_id}</td>
                   <td>{item.payin_method_name}</td>

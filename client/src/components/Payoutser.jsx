@@ -11,11 +11,11 @@ const Payoutser = () => {
         const response = await fetch('http://localhost:3000/user/payout');
         const data = await response.json();
         setPayoutMethods(data.data);
-        setIsLoading(false); // Set isLoading to false when data is fetched
+        setIsLoading(false); 
         console.log(data);
       } catch (error) {
         console.log(error);
-        setIsLoading(false); // Set isLoading to false on error as well
+        setIsLoading(false); 
       }
     };
 
@@ -24,50 +24,49 @@ const Payoutser = () => {
 
   return (
     <>
-    <h1 className="payoutmethh1">Payout Methods</h1>
+      <h1 className='payin-hist-h1'>Payout Methods</h1>
       {isLoading ? (
         <h1 className='loading-message'>Loading...</h1>
       ) : payoutMethods.length === 0 ? (
         <h1 className='errormsg'>No payout methods available.</h1>
       ) : (
         <div>
-          {/* <h1 className="payoutmethh1">Payout Methods</h1> */}
-          <div className="payout-container">
+          <div className="payin-container">
             {payoutMethods.map((method) => (
-              <div key={method.payout_method_id} className="payout-card">
-                <h3 className="payout-title">{method.payout_method_name}</h3>
+              <div key={method.payout_method_id} className="payin-card">
+                <h3 className="payin-title">{method.payout_method_name}</h3>
 
-                <img src={method.payout_method_logo} alt="Logo-payout" className="logo-payout" />
+                <img src={method.payout_method_logo} alt="Logo-payout" className="logo-payin" />
                 <p>
-                  <span className="payout-key">Sender Country: </span>
+                  <span className="payin-key">Sender Country: </span>
                   {method.sender_country}
                 </p>
                 <p>
-                  <span className="payout-key">Sender Currency:</span> {method.sender_currency}
+                  <span className="payin-key">Sender Currency:</span> {method.sender_currency}
                 </p>
                 <p>
-                  <span className="payout-key">Beneficiary Country:</span> {method.beneficiary_country}
+                  <span className="payin-key">Beneficiary Country:</span> {method.beneficiary_country}
                 </p>
                 <p>
-                  <span className="payout-key">Beneficiary Currency:</span> {method.beneficiary_currency}
+                  <span className="payin-key">Beneficiary Currency:</span> {method.beneficiary_currency}
                 </p>
                 <p>
-                  <span className="payout-key">Min Amount:</span> {method.min_amount}
+                  <span className="payin-key">Min Amount:</span> {method.min_amount}
                 </p>
                 <p>
-                  <span className="payout-key">Max Amount:</span> {method.max_amount}
+                  <span className="payin-key">Max Amount:</span> {method.max_amount}
                 </p>
                 <p>
-                  <span className="payout-key">Is Returnable:</span> {method.is_returnable ? 'Yes' : 'No'}
+                  <span className="payin-key">Is Returnable:</span> {method.is_returnable ? 'Yes' : 'No'}
                 </p>
                 <p>
-                  <span className="payout-key">Is Enabled:</span> {method.is_enabled ? 'Yes' : 'No'}
+                  <span className="payin-key">Is Enabled:</span> {method.is_enabled ? 'Yes' : 'No'}
                 </p>
               </div>
             ))}
           </div>
-          <div className="payoutbtn">
-            <Link to="/payoutser/all" className="payout-link ">
+          <div className="payinbtn">
+            <Link to="/payoutser/all" className="payin-link ">
               Payout History
             </Link>
           </div>

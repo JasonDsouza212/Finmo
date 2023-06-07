@@ -10,11 +10,11 @@ const Allpayout = () => {
         const response = await fetch('http://localhost:3000/user/payout/all');
         const data = await response.json();
         setAllPayout(data.data);
-        setIsLoading(false); // Set isLoading to false when data is fetched
+        setIsLoading(false);
         console.log(data);
       } catch (error) {
         console.log(error);
-        setIsLoading(false); // Set isLoading to false on error as well
+        setIsLoading(false);
       }
     };
 
@@ -23,7 +23,7 @@ const Allpayout = () => {
 
   return (
     <div>
-      <h1 className='payout-hist-h1'>Payout Methods</h1>
+      <h1 className='payin-hist-h1'>Payout Methods</h1>
       {isLoading ? (
         <h1 className='loading-message'>Loading...</h1>
       ) : allPayout.length === 0 ? (
@@ -51,7 +51,6 @@ const Allpayout = () => {
             <p>Is Returned: {item.is_returned.toString()}</p>
             <p>Created At: {item.created_at}</p>
             <p>Updated At: {item.updated_at}</p>
-            {/* Add more properties here as needed */}
           </div>
         ))
       )}

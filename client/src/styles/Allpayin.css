@@ -1,44 +1,49 @@
 .payin-table {
-    width: 80%;
-    border-collapse: collapse;
-    margin: 20px auto;
-  }
+  width: 80%;
+  border-collapse: collapse;
+  margin: 20px auto;
+}
 
-  .payin-hist-h1{
-    text-align: center;
-    margin-top: 20px;
-    text-transform: uppercase;
-  }
-  
-  .payin-table th,
-  .payin-table td {
-    text-align: center;
-    padding: 10px;
-    border: 2px solid #585252;
-  }
+.payin-hist-h1 {
+  text-align: center;
+  margin-top: 20px;
+  text-transform: uppercase;
+  color: hsl(206, 92%, 46%);
+}
 
-  .payin-table .tr-items:hover {
-    background-color: #585252 ;
-    color: white;
-  }
-  
-  
-  .payin-link {
-    display: block;
-    margin-top: 10px;
-    text-decoration: none;
-    color: #fff;
-    background-color: #007bff;
-    padding: 10px 20px;
-    border-radius: 5px;
-  }
-  
-  .payin-link:hover {
-    background-color: #0056b3;
-  }
-  .errormsg-payinhist{
-    margin-top: 50px ;
-    margin-bottom: 50px ;
-    text-align: center;
-  }
-  
+.payin-table th,
+.payin-table td {
+  text-align: center;
+  padding: 10px;
+  border: 2px solid #585252;
+}
+
+.payin-table .tr-items:hover {
+  background-color: hsl(206, 87%, 57%);
+  color: white;
+  cursor: pointer;
+}
+
+.payin-link {
+  display: block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #007bff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.payin-link:hover {
+  background-color: #0056b3;
+}
+
+.errormsg-payinhist {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.mediasupport {
+  display: none;
+}

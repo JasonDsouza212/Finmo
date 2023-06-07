@@ -1,4 +1,4 @@
-import React, {useRef } from 'react';
+import React, { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -32,13 +32,13 @@ const Home = () => {
     } else {
       await payoutlogin();
     }
-    console.log(ref.current)
+    console.log(ref.current);
     if (ref.current === false) {
       alert('You cannot authenticate further UI');
     } else {
-      if(ref===payinsuccess){
+      if (ref === payinsuccess) {
         navigate('/payinser');
-      }else{
+      } else {
         navigate('/payoutser');
       }
     }
@@ -46,25 +46,24 @@ const Home = () => {
 
   return (
     <>
-    <div className='service-card'>
-      <div className="card">
-      <h2 className="card-title">PAYIN</h2>
-      <p className="card-paragraph">Payin is the basic mechanism for collecting money from customers and depositing it in the Merchant Payin wallet or other Finmo Customer wallets.</p>
-      <Link className="card-button" onClick={() => handleLogin(payinsuccess)}>Payin</Link>
-    </div>
-    <div className="card">
-      <h2 className="card-title">PAYOUT</h2>
-      <p className="card-paragraph">Payout in Finmo terminology means money to be sent out to your beneficiaries from your Finmo account. Finmo here acts as a remitter of funds .</p>
-      <Link className="card-button" onClick={() => handleLogin(payoutsuccess)}>Payout</Link> 
-    </div>
-    <div className="card">
-      <h2 className="card-title">CUSTOMER</h2>
-      <p className="card-paragraph"> It allows you create a profile (or a Finmo ID) for your consumers and help them to do recurring transactions as well as track the payments made by them.</p>
-      <Link className="card-button" to='/allcustomers'>All Customers</Link> 
-    </div>
+      <div className='service-card'>
+        <div className="card">
+          <h2 className="card-title">PAYIN</h2>
+          <p className="card-paragraph">Payin is the basic mechanism for collecting money from customers and depositing it in the Merchant Payin wallet or other Finmo Customer wallets.</p>
+          <Link className="card-button" onClick={() => handleLogin(payinsuccess)}>Payin</Link>
+        </div>
+        <div className="card">
+          <h2 className="card-title">PAYOUT</h2>
+          <p className="card-paragraph">Payout in Finmo terminology means money to be sent out to your beneficiaries from your Finmo account. Finmo here acts as a remitter of funds .</p>
+          <Link className="card-button" onClick={() => handleLogin(payoutsuccess)}>Payout</Link>
+        </div>
+        <div className="card">
+          <h2 className="card-title">CUSTOMER</h2>
+          <p className="card-paragraph"> Finmo allows you create a profile for your consumers and help them to do recurring transactions as well as track the payments made by them.</p>
+          <Link className="card-button" to='/allcustomers'>All Customers</Link>
+        </div>
       </div>
     </>
-    
   );
 };
 

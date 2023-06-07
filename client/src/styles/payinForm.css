@@ -1,57 +1,73 @@
 .payment-form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
-  }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 300px;
-    padding: 20px;
-    background-color: #fff4f4;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border: 2px solid rgb(57, 57, 57);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
 
-  }
-  
-  .form-title {
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 10px;
-  }
-  
-  .form-label {
-    font-weight: bold;
-  }
-  
-  .form-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-  }
-  
-  .form-button {
-    margin-top: 10px;
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  }
-  
-  .link {
-    margin-top: 20px;
-    text-decoration: none;
-    color: #007bff;
-  }
-  
+.form {
+  border: 0.5px solid rgb(57, 57, 57);
+  width: 400px;
+  margin: auto;
+  padding: 26px 38px 38px 38px;
+  background-color: #f2efee;
+  border-radius: 11px;
+  box-shadow: 0 1.4rem 2.8rem rgba(0, 0, 0, 0.15);
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 16px;
+}
+
+.form h1 {
+  color: hsl(206, 92%, 46%);
+}
+
+.form-title {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 1.2rem;
+  border-radius: 9px;
+  border: none;
+  border: 1px solid rgb(205, 205, 205);
+}
+
+.form-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(253, 242, 233, 0.5);
+}
+
+.form-button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fdf2e9;
+  align-self: end;
+  padding: 8px;
+  display: inline-block;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 9px;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s;
+}
+
+.form-button:hover {
+  background-color: #1a5ea7;
+}

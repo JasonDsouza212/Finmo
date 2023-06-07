@@ -1,18 +1,17 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto'
-import { UserService } from './user.service'
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { UserService } from './user.service';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // authenticating sandbox 
-  @Get("login")
+  // authenticating sandbox
+  @Get('login')
   async getUserLogin() {
     return this.userService.authenticate();
   }
 
-
+  // Login with accesskey and secret key
   @Post('loginwithcred')
   async login(@Body() loginData: any): Promise<boolean> {
     try {
@@ -22,6 +21,7 @@ export class UserController {
     }
   }
 
+  // Logout from the App
   @Get('logout')
   async logout(): Promise<boolean> {
     try {
@@ -31,174 +31,89 @@ export class UserController {
     }
   }
 
-
-  // authenticating payin 
-  @Get("authpayin")
+  // authenticating payin
+  @Get('authpayin')
   async getUserauthpayin() {
     return this.userService.authpayin();
   }
 
-
-  // authenticating Payout 
-  @Get("authpayout")
+  // authenticating Payout
+  @Get('authpayout')
   async getUserauthpayout() {
     return this.userService.authpayout();
   }
 
-
-  // get payin all options 
-  @Get("payin")
+  // get payin all options
+  @Get('payin')
   async getUserpayinMethods() {
     return this.userService.payinmethods();
   }
 
-
-  // get payout all options 
-  @Get("payout")
+  // get payout all options
+  @Get('payout')
   async getUserpayoutMethods() {
     return this.userService.payoutmethods();
   }
 
-  // All payins 
-  @Get("payin/all")
+  // All payins that are made
+  @Get('payin/all')
   async getUserpayinall() {
     return this.userService.payinall();
   }
 
-    // All payouts 
-    @Get("payout/all")
-    async getUserpayoutalll() {
-      return this.userService.payoutall();
-    }
-
-    @Post('payinnow')
-    async createPayinNow(@Body() payinData: any): Promise<any> {
-      try {
-        return await this.userService.createPayin(payinData);
-      //  return true;
-      } catch (error) {
-        // Handle the error as needed
-        return false;
-        // return error;
-      }
-    }
-
-    @Post('payoutnow')
-      async createPayout(@Body() payoutData: any): Promise<boolean> {
-        try {
-          await this.userService.createPayout(payoutData);
-          return true;
-        } catch (error) {
-          // Handle the error as needed
-          return false;
-        }
-    }
-
-    // add customer 
-    @Post('addcustomer')
-    async addcustomer(@Body() addcustomerData: any): Promise<boolean> {
-      try {
-        await this.userService.addcustomer(addcustomerData);
-        return true;
-      } catch (error) {
-        // Handle the error as needed
-        return false;
-      }
+  // All payouts that are made
+  @Get('payout/all')
+  async getUserpayoutalll() {
+    return this.userService.payoutall();
   }
 
-      // add customer 
-      @Get("allcustomer")
-      async allcustomer() {
-        return this.userService.allcustomer();
-      }
+  // to payin using the app
+  @Post('payinnow')
+  async createPayinNow(@Body() payinData: any): Promise<any> {
+    try {
+      return await this.userService.createPayin(payinData);
+    } catch (error) {
+      return false;
+    }
+  }
 
-      @Get("customer/:customerId")
-      async customerdetails(@Param('customerId') customerId: string) {
-        return this.userService.customerdetails(customerId);
-      }
-      @Get("payin/:payinId")
-      async individualpayindetails(@Param('payinId') payinId: string) {
-        return this.userService.individualpayindetails(payinId);
-      }
+  // to payout to others
+  @Post('payoutnow')
+  async createPayout(@Body() payoutData: any): Promise<boolean> {
+    try {
+      await this.userService.createPayout(payoutData);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 
+  // add customer
+  @Post('addcustomer')
+  async addcustomer(@Body() addcustomerData: any): Promise<boolean> {
+    try {
+      await this.userService.addcustomer(addcustomerData);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  // Get all customers
+  @Get('allcustomer')
+  async allcustomer() {
+    return this.userService.allcustomer();
+  }
+
+  // get details of individual customer
+  @Get('customer/:customerId')
+  async customerdetails(@Param('customerId') customerId: string) {
+    return this.userService.customerdetails(customerId);
+  }
+
+  // get details of individual Payin
+  @Get('payin/:payinId')
+  async individualpayindetails(@Param('payinId') payinId: string) {
+    return this.userService.individualpayindetails(payinId);
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-// import { CreateUserDto } from './dto/create-user.dto'
-// import {UserService} from './user.service'
-
-// @Controller('user')
-// export class UserController {
-
-//     constructor(private readonly userService: UserService) {}
-
-//   @Get()
-//   async getUserLogin() {
-//     return  this.userService.authenticate();
-//   }
-
-    // @Get()
-    // getUsers(){
-    //     return [];
-    // }
-
-    // @Get()
-    // getUserslogin(){
-    //     return [];
-    // }
-
-    // @Get()
-    // getUsersquery(@Query('type') type:string){
-    //     return [{type}];
-    // }
-
-    // @Get(':id')
-    // getOneUsers(@Param('id') id:string){
-    //     return {
-    //         id,
-    //     };
-    // }
-
-    // @Post()
-    // createUser(@Body() createUserDto : CreateUserDto){
-    //     return {
-    //         name: createUserDto.name
-    //     }
-    // }
-
-// }
