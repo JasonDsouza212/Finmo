@@ -28,6 +28,7 @@
 - The user can **add a customer**.
 - The user can also **make a Payin**.
 - The user can also **logout**
+- The user can Delete **customers**
 
 # 🛠️ Tech Stack
 
